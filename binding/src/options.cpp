@@ -1,5 +1,7 @@
 #include "options.h"
 
+#include <climits>
+#include <cmath>
 #include <functional>
 #include <unordered_map>
 #include <vector>
@@ -47,7 +49,17 @@ bool require_int(Napi::Value value, const std::string &name, int *out_value,
     *error = name + " must be a number";
     return false;
   }
-  *out_value = value.As<Napi::Number>().Int32Value();
+  double d = value.As<Napi::Number>().DoubleValue();
+  if (!std::isfinite(d) || d != std::trunc(d)) {
+    *error = name + " must be a finite integer";
+    return false;
+  }
+  if (d < static_cast<double>(INT32_MIN) ||
+      d > static_cast<double>(INT32_MAX)) {
+    *error = name + " must be a finite integer within int32 range";
+    return false;
+  }
+  *out_value = static_cast<int>(d);
   return true;
 }
 

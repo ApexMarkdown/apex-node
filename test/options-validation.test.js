@@ -43,4 +43,37 @@ describe("option validation", () => {
       TypeError
     );
   });
+
+  it("rejects fractional integer options", () => {
+    assert.throws(
+      () => convert("# x", { terminalWidth: 2.5 }),
+      (err) =>
+        err instanceof TypeError && /terminalWidth must be a finite integer/.test(err.message)
+    );
+  });
+
+  it("rejects NaN integer options", () => {
+    assert.throws(
+      () => convert("# x", { terminalWidth: NaN }),
+      (err) =>
+        err instanceof TypeError && /terminalWidth must be a finite integer/.test(err.message)
+    );
+  });
+
+  it("rejects Infinity integer options", () => {
+    assert.throws(
+      () => convert("# x", { terminalWidth: Infinity }),
+      (err) =>
+        err instanceof TypeError && /terminalWidth must be a finite integer/.test(err.message)
+    );
+  });
+
+  it("rejects out-of-range integer options", () => {
+    assert.throws(
+      () => convert("# x", { terminalWidth: 2147483648 }),
+      (err) =>
+        err instanceof TypeError &&
+        /terminalWidth must be a finite integer within int32 range/.test(err.message)
+    );
+  });
 });

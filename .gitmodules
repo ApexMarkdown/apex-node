@@ -1,0 +1,3 @@
+[submodule "vendor/apex"]
+	path = vendor/apex
+	url = https://github.com/ApexMarkdown/apex.git

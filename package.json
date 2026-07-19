@@ -1,0 +1,41 @@
+{
+  "name": "@apexmarkdown/apex",
+  "version": "0.1.0",
+  "description": "Node.js bindings for the Apex unified Markdown processor",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "require": "./lib/index.js",
+      "import": "./lib/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "lib/",
+    "binding/",
+    "scripts/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "node --test test/**/*.test.js",
+    "package:prebuild": "node scripts/package-prebuild.js"
+  },
+  "optionalDependencies": {
+    "@apexmarkdown/apex-darwin-arm64": "0.1.0",
+    "@apexmarkdown/apex-darwin-x64": "0.1.0",
+    "@apexmarkdown/apex-linux-arm64": "0.1.0",
+    "@apexmarkdown/apex-linux-x64": "0.1.0"
+  },
+  "devDependencies": {
+    "cmake-js": "^7.3.0",
+    "node-addon-api": "^8.3.0"
+  }
+}

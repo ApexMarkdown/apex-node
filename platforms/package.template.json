@@ -7,6 +7,10 @@
   "main": "apex.node",
   "files": ["apex.node", "README.md"],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ApexMarkdown/apex-node.git"
+  },
   "engines": {
     "node": ">=20"
   }

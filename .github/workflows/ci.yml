@@ -49,5 +49,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact }}
-          path: prebuilds/**
+          path: prebuilds
           if-no-files-found: error

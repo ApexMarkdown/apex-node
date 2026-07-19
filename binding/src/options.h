@@ -6,7 +6,6 @@
 #include "apex/apex.h"
 
 struct ApexNodeOptionStorage {
-  std::vector<std::string> owned_strings;
   std::vector<std::vector<char>> owned_cstrings;
   std::vector<const char *> stylesheet_ptrs;
   std::vector<char *> bibliography_ptrs;

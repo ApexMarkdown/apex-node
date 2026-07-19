@@ -30,4 +30,17 @@ describe("option validation", () => {
       (err) => err instanceof TypeError
     );
   });
+
+  it("accepts camelCase mode aliases only as documented strings", () => {
+    assert.doesNotThrow(() => convert("# x", { mode: "unified" }));
+    assert.doesNotThrow(() => convert("# x", { mode: "commonmark" }));
+    assert.doesNotThrow(() => convert("# x", { mode: "quarto" }));
+  });
+
+  it("rejects snake_case option names", () => {
+    assert.throws(
+      () => convert("# x", { enable_tables: true }),
+      TypeError
+    );
+  });
 });

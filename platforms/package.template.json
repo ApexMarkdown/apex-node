@@ -1,0 +1,13 @@
+{
+  "name": "@apexmarkdown/apex-PLATFORM_ARCH",
+  "version": "PACKAGE_VERSION",
+  "description": "Apex native addon for PLATFORM_ARCH",
+  "os": ["OS"],
+  "cpu": ["CPU"],
+  "main": "apex.node",
+  "files": ["apex.node", "README.md"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
+}

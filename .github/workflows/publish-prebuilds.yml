@@ -16,7 +16,7 @@ jobs:
           - os: macos-14
             package: "@apexmarkdown/apex-darwin-arm64"
             artifact: apexmarkdown-apex-darwin-arm64
-          - os: macos-13
+          - os: macos-15-intel
             package: "@apexmarkdown/apex-darwin-x64"
             artifact: apexmarkdown-apex-darwin-x64
           - os: ubuntu-24.04

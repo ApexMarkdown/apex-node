@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "description": "Node.js bindings for the Apex unified Markdown processor",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ApexMarkdown/apex-node.git"
+  },
+  "homepage": "https://github.com/ApexMarkdown/apex-node",
+  "bugs": {
+    "url": "https://github.com/ApexMarkdown/apex-node/issues"
+  },
   "type": "commonjs",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

@@ -33,7 +33,7 @@
   ],
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "node --test test/**/*.test.js",
+    "test": "node --test test/*.test.js",
     "package:prebuild": "node scripts/package-prebuild.js"
   },
   "optionalDependencies": {

@@ -387,6 +387,17 @@ const std::unordered_map<std::string, OptionHandler> &option_handlers() {
   return kHandlers;
 }
 
+Napi::Array get_own_property_names(Napi::Env env, Napi::Object obj) {
+  Napi::Function fn =
+      env.Global()
+          .As<Napi::Object>()
+          .Get("Object")
+          .As<Napi::Object>()
+          .Get("getOwnPropertyNames")
+          .As<Napi::Function>();
+  return fn.Call({obj}).As<Napi::Array>();
+}
+
 }  // namespace
 
 bool apex_node_options_from_js(Napi::Env env,
@@ -420,7 +431,7 @@ bool apex_node_options_from_js(Napi::Env env,
     *out = apex_options_default();
   }
 
-  Napi::Array names = obj.GetPropertyNames();
+  Napi::Array names = get_own_property_names(env, obj);
   const auto &handlers = option_handlers();
   for (uint32_t i = 0; i < names.Length(); ++i) {
     std::string name = names.Get(i).As<Napi::String>().Utf8Value();

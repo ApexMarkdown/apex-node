@@ -35,59 +35,15 @@ target_compile_definitions(apex_yaml PUBLIC
   HAVE_CONFIG_H=0
 )
 
-set(APEX_LIB_SOURCES
-  ${APEX_ROOT}/src/apex.c
-  ${APEX_ROOT}/src/ast_json.c
-  ${APEX_ROOT}/src/ast_markdown.c
-  ${APEX_ROOT}/src/ast_terminal.c
-  ${APEX_ROOT}/src/ast_man.c
-  ${APEX_ROOT}/src/filters_ast.c
-  ${APEX_ROOT}/src/plugins_env.c
-  ${APEX_ROOT}/src/plugins.c
-  ${APEX_ROOT}/src/plugins_remote.c
-  ${APEX_ROOT}/src/plugin_catalog.c
-  ${APEX_ROOT}/src/html_renderer.c
-  ${APEX_ROOT}/src/extensions/metadata.c
-  ${APEX_ROOT}/src/extensions/wiki_links.c
-  ${APEX_ROOT}/src/extensions/math.c
-  ${APEX_ROOT}/src/extensions/critic.c
-  ${APEX_ROOT}/src/extensions/callouts.c
-  ${APEX_ROOT}/src/extensions/raw_content.c
-  ${APEX_ROOT}/src/extensions/code_fence_attrs.c
-  ${APEX_ROOT}/src/extensions/quarto_diagrams.c
-  ${APEX_ROOT}/src/extensions/quarto_shortcodes.c
-  ${APEX_ROOT}/src/extensions/quarto_polish.c
-  ${APEX_ROOT}/src/extensions/quarto_lists.c
-  ${APEX_ROOT}/src/extensions/includes.c
-  ${APEX_ROOT}/src/extensions/inline_tables.c
-  ${APEX_ROOT}/src/extensions/toc.c
-  ${APEX_ROOT}/src/extensions/abbreviations.c
-  ${APEX_ROOT}/src/extensions/emoji.c
-  ${APEX_ROOT}/src/extensions/special_markers.c
-  ${APEX_ROOT}/src/extensions/ial.c
-  ${APEX_ROOT}/src/extensions/bear_image_attrs.c
-  ${APEX_ROOT}/src/extensions/definition_list.c
-  ${APEX_ROOT}/src/extensions/advanced_footnotes.c
-  ${APEX_ROOT}/src/extensions/advanced_tables.c
-  ${APEX_ROOT}/src/extensions/html_markdown.c
-  ${APEX_ROOT}/src/extensions/fenced_divs.c
-  ${APEX_ROOT}/src/extensions/table_html_postprocess.c
-  ${APEX_ROOT}/src/extensions/inline_footnotes.c
-  ${APEX_ROOT}/src/extensions/highlight.c
-  ${APEX_ROOT}/src/extensions/insert.c
-  ${APEX_ROOT}/src/extensions/sup_sub.c
-  ${APEX_ROOT}/src/extensions/header_ids.c
-  ${APEX_ROOT}/src/extensions/relaxed_tables.c
-  ${APEX_ROOT}/src/extensions/grid_tables.c
-  ${APEX_ROOT}/src/extensions/citations.c
-  ${APEX_ROOT}/src/extensions/index.c
-  ${APEX_ROOT}/src/extensions/syntax_highlight.c
-  ${APEX_ROOT}/src/pretty_html.c
-  ${APEX_ROOT}/src/buffer.c
-  ${APEX_ROOT}/src/parser.c
-  ${APEX_ROOT}/src/renderer.c
-  ${APEX_ROOT}/src/utf8.c
-)
+# Compile the same library sources as Apex's own build, so files added in new
+# Apex releases are picked up without editing this list.
+file(READ "${APEX_ROOT}/CMakeLists.txt" APEX_CMAKE_CONTENTS)
+string(REGEX MATCH "set\\(APEX_LIB_SOURCES[^)]*\\)" APEX_SOURCES_BLOCK "${APEX_CMAKE_CONTENTS}")
+if(NOT APEX_SOURCES_BLOCK)
+  message(FATAL_ERROR "APEX_LIB_SOURCES not found in ${APEX_ROOT}/CMakeLists.txt")
+endif()
+string(REGEX MATCHALL "src/[^ \t\r\n)]+\\.c" APEX_LIB_SOURCES "${APEX_SOURCES_BLOCK}")
+list(TRANSFORM APEX_LIB_SOURCES PREPEND "${APEX_ROOT}/")
 
 add_library(apex_static STATIC ${APEX_LIB_SOURCES})
 target_include_directories(apex_static PUBLIC

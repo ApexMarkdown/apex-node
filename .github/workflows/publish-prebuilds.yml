@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: macos-14
+          - os: macos-15
             package: "@apexmarkdown/apex-darwin-arm64"
             artifact: apexmarkdown-apex-darwin-arm64
           - os: macos-15-intel
